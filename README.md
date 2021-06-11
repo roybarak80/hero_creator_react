@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+## Brief
+Your challenge is to create a hero builder, where players can customize a DnD-style hero and view the result. Please use **React**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Using a 3-step process, the player will select a hero class, customize hero skills by assigning points and preview the final result.
 
-## Available Scripts
+**Hints**
+1. Heroes and skills are randomized (see API below); the app should adapt to the given data.
+2. The app should be responsive
 
-In the project directory, you can run:
+## Design
+In the **design** folder you'll find a simple wireframe to demonstrate the required flow. The final look and feel is up to you - go wild!  
+You are _not_ evaluated on artistic skills, but _are_ expected to provide an aesthetic and usable end product.
 
-### `npm start`
+## Behavior
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Step 1: Hero Selection
+The player sees the name and avatar of each available hero class (between 2-4 classes, see API below). A choice must be made to continue.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Step 2: Skill Customization
+The player gets 100 skill points, freely assignable to the hero's  skills (such as Stamina, Strength, Armor...). The exact skills may change depending on class (between 2-6 skills, see API below).
 
-### `npm test`
+**Skill behavior**
+1. Each skill starts at 0.
+2. The skills cannot total _more_ than 100 points at any time.
+3. It should always be possible to assign any 0-100 value to a given skill. Given rule (2), if this gets us over 100 total points, the excess automatically, immediately, removed from the other skills, according to their current values.
+4. It's not required to use all 100 points (or any).
+5. A skill's value is always an integer.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Example**
 
-### `npm run build`
+- We start with:  
+  Stamina: 0 | Speed: 0 | Armor: 0 | Strength: 0 | _Remaining: 100_
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- The player adds 50 Speed.  
+  Stamina: 0 | Speed: 50 | Armor: 0 | Strength: 0 | _Remaining: 50_
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- The player adds 25 Armor.  
+  Stamina: 0 | Speed: 50 | Armor: 25 | Strength: 0 | _Remaining: 25_
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- The player now adds 40 Stamina. The excess is automatically reduced from the other skills, weighted by their current values.  
+  Stamina: 40 | Speed: 40 | Armor: 20 | Strength: 0 | _Remaining: 0_
 
-### `npm run eject`
+- The player then reduces Speed to 10.  
+  Stamina: 40 | Speed: 30 | Armor: 20 | Strength: 0 | _Remaining: 10_
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Finally, the player sets Strength to 100.  
+  Stamina: 0 | Speed: 0 | Armor: 0 | Strength: 100 | _Remaining: 0_
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Step 3: View Result
+The player is presented with a read-only summary of their hero's class, avatar and skills.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## API
+Send a GET to  
+`https://frontend-interview-hero-63u64o32qq-uk.a.run.app/heroes`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Response will include available heroes (between 2-4), for each:
+- hero name
+- hero portrait as relative path, example:  
+  `/portraits/orc.png` becomes `https://frontend-interview-hero-63u64o32qq-uk.a.run.app/portraits/orc.png`
+- hero skills (between 2-6)
 
-## Learn More
+** Note the response is randomized
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Submission
+Please organize your code and push your changes to the master branch.
+___
+All the best,  
+The StreamElements team
