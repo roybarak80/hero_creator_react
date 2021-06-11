@@ -15,8 +15,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 const HerosList = props => {
   const classes = useStyles();
    return <div className={classes.root}>
