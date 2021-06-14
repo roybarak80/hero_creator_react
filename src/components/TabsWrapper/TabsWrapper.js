@@ -8,8 +8,10 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-import HerosList from '../HerosSelection/HerosList'
-
+import HerosList from '../HerosSelection/HerosList';
+import Skills from '../SkillsTab/Skills';
+import Result from '../ResultTab/Result';
+import Helpers from '../../Helpers';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -43,12 +45,21 @@ const useStyles = makeStyles((theme) => ({
   indicator:{backgroundColor:"#f76a03"}
 }));
 
+const skillsInitVal = {
+  Constitution:0,
+  Dexterity:0,
+  Charisma:0,
+  Strength:0
+}
+
 export default function TabsWrapper() {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = useState(0);
   const[herosData, setHerosData] = useState([]);
   const [selectedHero, setSelectedHero] = useState({});
+  const [skillsValues, setSkillsValues] = useState(skillsInitVal);
+  
 
   useEffect(()=> {
     async function fetchHeros() {
@@ -72,10 +83,33 @@ export default function TabsWrapper() {
 
   function handleSelect(hero){
     setSelectedHero(hero)
-    console.log(selectedHero)
+    //console.log(selectedHero)
 }
 const handleChangeIndex = (index) => {
   setValue(index);
+};
+
+const handleSlider = (event, newValue) => {
+ if(event.currentTarget.attributes && event.currentTarget.attributes.length && event.currentTarget.attributes['data-tag']){
+  let skillName = event.currentTarget.getAttribute('data-tag');
+
+  let skillsKeys = Object.keys(skillsValues)
+  let newValueIndex = skillsKeys.indexOf(skillName);
+
+  let currentValuesToCalc = Object.values(skillsValues)
+  let updatedSkills = Helpers.calcSkills(currentValuesToCalc, newValue, newValueIndex)
+
+  Object.keys(skillsValues).forEach(function(key, index){ 
+    skillsValues[key] = updatedSkills[index] 
+  });
+
+console.log(skillsValues);
+  let stateCopy = Object.assign({}, skillsValues);
+  stateCopy[skillName] = newValue
+ setSkillsValues(stateCopy)
+  
+ }
+
 };
 
 
@@ -99,9 +133,11 @@ const handleChangeIndex = (index) => {
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
         <span className="tab-title">Fine Tune Your Skills</span>
+        <Skills changeSkill={handleSlider} skills={skillsValues}/>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
         <span className="tab-title">Your Hero Is Ready!</span>
+        {/* <Result heroData={[selectedHero,constitutionValue]}/> */}
         </TabPanel>
       </SwipeableViews>
 

@@ -20,7 +20,7 @@ const HerosList = props => {
    return <div className={classes.root}>
            <Grid container spacing={3}>
    {props.heroes.map((item, i) => (
-          <Grid item xs={12} sm={12 / (props.heroes.length)}>
+          <Grid key={ i} item xs={12} sm={12 / (props.heroes.length)}>
             <Paper className={classes.paper}><HeroItem key={i} hero={item} onSelect={props.onSelect}/></Paper>
            </Grid>
          ))}

@@ -6,8 +6,6 @@ const Image = props => {
     const [imageLoading, setImageLoading] = useState(true);
     const heroPic = `https://frontend-interview-hero-63u64o32qq-uk.a.run.app${image}`
 
-    console.log(imageLoading);
-
     const imageLoading_Error = () => {
         setImageLoading(false)
     }

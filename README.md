@@ -35,10 +35,10 @@ The player gets 100 skill points, freely assignable to the hero's  skills (such 
   Stamina: 0 | Speed: 50 | Armor: 0 | Strength: 0 | _Remaining: 50_
 
 - The player adds 25 Armor.  
-  Stamina: 0 | Speed: 50 | Armor: 25 | Strength: 0 | _Remaining: 25_
+  Stamina: 0 | Speed: 50 | Armor: 25 | Strength: 0 | _Remaining: 25_  
 
 - The player now adds 40 Stamina. The excess is automatically reduced from the other skills, weighted by their current values.  
-  Stamina: 40 | Speed: 40 | Armor: 20 | Strength: 0 | _Remaining: 0_
+  Stamina: 40 | Speed: 40 | Armor: 20 | Strength: 0 | _Remaining: 0_ 
 
 - The player then reduces Speed to 10.  
   Stamina: 40 | Speed: 30 | Armor: 20 | Strength: 0 | _Remaining: 10_
