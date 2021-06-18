@@ -9,10 +9,13 @@ import Tooltip from '@material-ui/core/Tooltip';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: 300 + theme.spacing(3) * 2,
+        color:'#fff',
+        '& p':{fontFamily:'Exo'}
     },
     margin: {
         height: theme.spacing(3),
     },
+    
 }));
 
 function ValueLabelComponent(props) {
@@ -37,6 +40,7 @@ const SkillsSlider = withStyles({
     root: {
         color: '#52af77',
         height: 8,
+        
     },
     thumb: {
         height: 24,
@@ -48,18 +52,26 @@ const SkillsSlider = withStyles({
         '&:focus, &:hover, &$active': {
             boxShadow: 'inherit',
         },
+        
+        
     },
     active: {},
     valueLabel: {
         left: 'calc(-50% + 4px)',
+        
+        color:'#181f1f'
+        
     },
     track: {
         height: 8,
         borderRadius: 4,
+        color:'#f76a03',
+        
     },
     rail: {
         height: 8,
         borderRadius: 4,
+        color:'#f76a03'
     },
 })(Slider);
 

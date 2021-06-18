@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#aa0',
         fontSize: '50px'
     },
+    tabsPanel:{
+        backgroundColor: '#425050'
+    },
     centerBox:{display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column',
@@ -71,7 +74,7 @@ function TabPanel(props) {
 
     return tempObj 
   }
-  
+
   const skillsInitVal = {
     Constitution:0,
     Dexterity:0,
@@ -108,6 +111,7 @@ export default function Main() {
         switch (tabName.name) {
             case 'Heros':
                 setSelectedTab(index);
+                setSelectedHero({})
                 break;
                 case 'Skills':
                     if( !_.isEmpty(selectedHero)){

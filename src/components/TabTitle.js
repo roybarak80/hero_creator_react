@@ -4,8 +4,9 @@ const useStyles = makeStyles((theme) => ({
 
     tabTitleText: {
         fontFamily: 'Exo',
-        fontSize: 'large',
-        fontWeight: 'bold',
+        fontSize: 'x-large',
+        fontWeight: '800',
+        color:'#fff'
     },
 
     tabErrorText: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 'large',
         fontWeight: 'bold',
         marginBottom: '20px',
-        color:'tomato'
+        color:'red'
     },
 
 }));
