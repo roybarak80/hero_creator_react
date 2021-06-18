@@ -8,10 +8,12 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
+
 import HerosList from '../HerosSelection/HerosList';
-import Skills from '../SkillsTab/Skills';
-import Result from '../ResultTab/Result';
+import Skills from '../SkillsWrapper';
+import Result from '../ResultWrapper';
 import Helpers from '../../Helpers';
+import Errors from '../Errors';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,6 +54,23 @@ const skillsInitVal = {
   Strength:0
 }
 
+const tabsInitialState ={
+ heroSelection:true,
+ skillSelection:false,
+  resultSelection:false}
+
+const errorMessagesInit = {
+  noHeroSelected:{text:"Please select a Hero to continue",state:false},
+  noSkillSelected:{text:"Please select skills to continue",state:false}
+
+}
+
+const tabs = [
+  {name:'heroSelection',isShow:true},
+  {name:'skillSelection', isShow:true},
+  {name:'resultSelection', isShow:true},
+]
+
 export default function TabsWrapper() {
   const classes = useStyles();
   const theme = useTheme();
@@ -59,7 +78,8 @@ export default function TabsWrapper() {
   const[herosData, setHerosData] = useState([]);
   const [selectedHero, setSelectedHero] = useState({});
   const [skillsValues, setSkillsValues] = useState(skillsInitVal);
-  
+  const [tabsState, setTabsState] = useState(tabsInitialState);
+  const [userErrors, setError] = useState(errorMessagesInit)
 
   useEffect(()=> {
     async function fetchHeros() {
@@ -72,18 +92,64 @@ export default function TabsWrapper() {
 
   console.log(herosData);
   const handleChange = (event, newValue) => {
-      if(!selectedHero || !Object.keys(selectedHero).length){
-          return
-      }else{
 
-        setValue(newValue);
+        switch (newValue) {
+          case 0:
+            setSelectedTabs('heroSelection')
+            setValue(newValue);
+            break;
+            case 1:
+
+              if(!selectedHero || !Object.keys(selectedHero).length){
+                setErrorMessage('noHeroSelected', true)
+            }else{
+              setSelectedTabs('skillSelection');
+              
+              setValue(newValue);
+            }
+            
+            break;
+            
+            case 2:
+              let skillsSum = Object.values(skillsValues).reduce((a,b)=>{return a +b });
+
+              if(tabsState.heroSelection && tabsState.skillSelection && skillsSum >=4){
+
+                setSelectedTabs('resultSelection')
+                setErrorMessage('noSkillSelected', false)
+                setValue(newValue);
+                
+              }else{
+                setErrorMessage('noSkillSelected', true)
+              }
+            break;
+        
+        }
+
+        
+  
       }
     
-  };
+      function setErrorMessage(messageStr, prmBool){
+
+        userErrors[messageStr].state = prmBool;
+        
+        setError(userErrors)
+      }
+  
+  
+  
+
+  function setSelectedTabs(tabName){
+    tabsState[tabName] = true
+  setTabsState(tabsState)
+  }
 
   function handleSelect(hero){
-    setSelectedHero(hero)
-    //console.log(selectedHero)
+    setErrorMessage('noHeroSelected', false)
+    setSelectedHero(hero);
+
+    
 }
 const handleChangeIndex = (index) => {
   setValue(index);
@@ -127,17 +193,21 @@ console.log(skillsValues);
         index={value}
         onChangeIndex={handleChangeIndex}
       >
+        
         <TabPanel value={value} index={0} dir={theme.direction}>
         <span className="tab-title">Create Your Hero</span>
+        <Errors tab={tabsState} errors={userErrors}/>
           <HerosList heroes={herosData} onSelect={handleSelect}/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
         <span className="tab-title">Fine Tune Your Skills</span>
+        <Errors tab={tabsState} errors={userErrors}/>
         <Skills changeSkill={handleSlider} skills={skillsValues}/>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
         <span className="tab-title">Your Hero Is Ready!</span>
-        {/* <Result heroData={[selectedHero,constitutionValue]}/> */}
+        <Errors tab={tabsState} errors={userErrors}/>
+        <Result heroData={[selectedHero,skillsValues]}/>
         </TabPanel>
       </SwipeableViews>
 

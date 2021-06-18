@@ -64,7 +64,7 @@ const SkillsSlider = withStyles({
 })(Slider);
 
 
-const Skills = props => {
+const SkillsWrapper = props => {
     const classes = useStyles();
     const sliderNames = Object.keys(props.skills);
     
@@ -87,4 +87,4 @@ const Skills = props => {
         </div>
     );
 }
-export default Skills;
+export default SkillsWrapper;

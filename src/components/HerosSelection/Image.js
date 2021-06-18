@@ -17,7 +17,7 @@ const Image = props => {
                 ?
                 `https://frontend-interview-hero-63u64o32qq-uk.a.run.app${image}`
                 :
-                `${window.location.origin}/assets/default.png`}
+                `${window.location.origin}/assets/defaultImg.png`}
                 onError={() => imageLoading_Error()}
             />
 
