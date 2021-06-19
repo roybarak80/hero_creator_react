@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
-    heroImage:{
+    heroImage: {
         width: 'auto',
         height: '200px',
-        borderRadius:'10px',
+        borderRadius: '10px',
+        backgroundColor: '#fff'
     }
 }));
 
@@ -18,7 +19,6 @@ const Image = props => {
         setImageLoading(false)
     }
 
-    //border-radius: 10px;
     return (
         <>
             <img className={classes.heroImage} src={imageLoading

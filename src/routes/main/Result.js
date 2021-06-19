@@ -1,5 +1,6 @@
 import TabTitle from '../../components/TabTitle';
 import HeroItem from '../../components/HerosSelection/HeroItem';
+
 const Result = props => {
 
     const { tabText, tabError ,tabData} = props;
@@ -10,7 +11,6 @@ const Result = props => {
         <>
             <TabTitle tabError={tabError} tabText={tabText} />
             <HeroItem hero={heros} isSingleItem={true} skills={skills}/>
-            
         </>
     )
 }

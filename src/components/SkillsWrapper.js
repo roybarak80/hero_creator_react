@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, makeStyles, formatMs } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
@@ -9,13 +9,13 @@ import Tooltip from '@material-ui/core/Tooltip';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: 300 + theme.spacing(3) * 2,
-        color:'#fff',
-        '& p':{fontFamily:'Exo'}
+        color: '#fff',
+        '& p': { fontFamily: 'Exo' }
     },
     margin: {
         height: theme.spacing(3),
     },
-    
+
 }));
 
 function ValueLabelComponent(props) {
@@ -34,13 +34,11 @@ ValueLabelComponent.propTypes = {
     value: PropTypes.number.isRequired,
 };
 
-
-
 const SkillsSlider = withStyles({
     root: {
         color: '#52af77',
         height: 8,
-        
+
     },
     thumb: {
         height: 24,
@@ -52,26 +50,26 @@ const SkillsSlider = withStyles({
         '&:focus, &:hover, &$active': {
             boxShadow: 'inherit',
         },
-        
-        
+
+
     },
     active: {},
     valueLabel: {
         left: 'calc(-50% + 4px)',
-        
-        color:'#181f1f'
-        
+
+        color: '#181f1f'
+
     },
     track: {
         height: 8,
         borderRadius: 4,
-        color:'#f76a03',
-        
+        color: '#f76a03',
+
     },
     rail: {
         height: 8,
         borderRadius: 4,
-        color:'#f76a03'
+        color: '#f76a03'
     },
 })(Slider);
 
@@ -79,7 +77,7 @@ const SkillsSlider = withStyles({
 const SkillsWrapper = props => {
     const classes = useStyles();
     const sliderNames = Object.keys(props.skills);
-    
+
     return (
         <div className={classes.root}>
 
@@ -88,7 +86,7 @@ const SkillsWrapper = props => {
                     <Typography gutterBottom>{itemValue}</Typography>
                     <Grid container spacing={2} alignItems="center">
                         <Grid item xs>
-                            <SkillsSlider onChange={props.changeSkill}  value ={props.skills[itemValue]} data-tag={itemValue} valueLabelDisplay="auto" aria-label="Skills Slider" defaultValue={0} />
+                            <SkillsSlider onChange={props.changeSkill} value={props.skills[itemValue]} data-tag={itemValue} valueLabelDisplay="auto" aria-label="Skills Slider" defaultValue={0} />
                         </Grid>
                         <Grid item>
                             {props.skills[itemValue]}
