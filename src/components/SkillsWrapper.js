@@ -8,7 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: 300 + theme.spacing(3) * 2,
+        width: 300 + theme.spacing(1) * 2,
         color: '#fff',
         '& p': { fontFamily: 'Exo' }
     },

@@ -36,7 +36,10 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        flexDirection: 'column',
+       
     },
+    
     ['@media only screen and (max-width : 768px)']: {
         heroItem: {
             width: '100%',
@@ -59,16 +62,12 @@ const HeroItem = props => {
         <div className={classes.heroName}>
             <div className={classes.heroNameTitle}>{hero.name}</div>
             <div className={classes.heroInfoWrapper}>
-                <div>
-                    <ul>
-                        {skillNames.map((item, i) => (
-                            <li key={i}> <span style={{ fontWeight: 'bold' }}>{skills[item]}% </span>{item}</li>
-                        ))}
-                    </ul>
-                </div>
-                <div>
-                    <Image image={hero.image} />
-                </div>
+                <ul style={{listStyleType: 'none', padding:'0px'}}>
+                    {skillNames.map((item, i) => (
+                        <li key={i}> <span style={{ fontWeight: 'bold' }}>{skills[item]}% </span>{item}</li>
+                    ))}
+                </ul>
+                <Image image={hero.image} />
 
             </div>
         </div>
